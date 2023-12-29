@@ -1,2 +1,2 @@
 streamlit==1.28.0
-https://test-files.pythonhosted.org/packages/ca/c9/d3bdde8fb7ba736fb07be6de180c9288c3812a8dcb4c3f5198f6141ef50f/emobots-0.0.2-py3-none-any.whl
+https://test-files.pythonhosted.org/packages/61/32/0d0e91019b4eba1cc914518552f19c3a7013a3eb4dc6a0a7ca0fa5a28b69/emobots-0.0.3-py3-none-any.whl
