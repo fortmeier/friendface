@@ -4,15 +4,13 @@ from openai import OpenAI
 from emobots.emobot import Emobot
 from emobots.personas import get_all_personas
 
-import api_key
-
 def initialize_friends():
     personas = get_all_personas()
 
     friends = {}
 
     for id, persona in personas.items():
-        client = OpenAI(api_key=api_key.api_key)
+        client = OpenAI(api_key=st.secrets["openai_api_key"])
         name = persona["name"]
         person_desc = persona["description"]
 
