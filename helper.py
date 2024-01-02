@@ -8,13 +8,34 @@ from emobots.personas import get_all_personas
 from emobots.random_person import create_random_person_description, create_random_person_description_tinder
 from emobots.tools import get_name_from_description
 
+
+
+def ask_api_key():
+    if "openai_api_key" in st.secrets:
+        st.session_state["openai_api_key"] = st.secrets["openai_api_key"]
+        st.rerun()
+    else:
+        txt = st.text_area("Please provide OpenAI API key")
+        if txt != "":
+            client = OpenAI(api_key=txt)
+            try:
+                client.models.retrieve("davinci")
+                st.session_state["openai_api_key"] = txt
+                st.rerun()
+            except Exception as e:
+                st.markdown("No valid key give. Please check above.")
+
+
+def get_api_key():
+    return st.session_state.get("openai_api_key", None)
+
 def initialize_friends():
     personas = get_all_personas()
 
     friends = {}
 
     for id, persona in personas.items():
-        client = OpenAI(api_key=st.secrets["openai_api_key"])
+        client = OpenAI(api_key=get_api_key())
         name = persona["name"]
         person_desc = persona["description"]
 
@@ -25,7 +46,7 @@ def initialize_friends():
     st.session_state.friends = friends
 
 def create_random_friend():
-    client = OpenAI(api_key=st.secrets["openai_api_key"])
+    client = OpenAI(api_key=get_api_key())
 
     person_generator = random.choice([
         create_random_person_description,
